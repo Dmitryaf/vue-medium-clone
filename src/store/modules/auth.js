@@ -1,20 +1,27 @@
 import authApi from '@/api/auth'
 
 const state = {
-  isSubmitting: false
+  isSubmitting: false,
+  currentUser: null,
+  validationErrors: null,
+  isLoggedIn: null
 }
 
 const mutations = {
   registerStart(state) {
     state.isSubmitting = true
+    state.validationErrors = null
   },
 
-  registerSuccess() {
+  registerSuccess(state, payload) {
     state.isSubmitting = false
+    state.currentUser = payload
+    state.isLoggedIn = true
   },
 
-  registerFailure() {
+  registerFailure(state, payload) {
     state.isSubmitting = false
+    state.validationErrors = payload
   }
 }
 

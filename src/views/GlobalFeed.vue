@@ -1,6 +1,6 @@
 <template>
   <div class="home-page">
-    BANNER
+    <mcv-banner />
     <div class="container page">
       <div class="row">
         <div class="col-md-9">
@@ -17,12 +17,14 @@
 <script>
 import McvFeed from '@/components/Feed'
 import McvTags from '@/components/Tags'
+import McvBanner from '@/components/Banner'
 
 export default {
   name: 'McvGlobalFeed',
   components: {
     McvFeed,
-    McvTags
+    McvTags,
+    McvBanner
   },
   data() {
     return {

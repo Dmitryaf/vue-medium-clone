@@ -15,7 +15,7 @@
               params: { slug: article.author.username }
             }"
           >
-            <img :src="article.author.img" />
+            <img :src="article.author.image" />
           </router-link>
           <div class="info">
             <router-link

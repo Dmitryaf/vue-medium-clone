@@ -21,12 +21,10 @@ const mutations = {
     state.isLoading = true
     state.data = null
   },
-
   [mutationTypes.getFeedSuccess](state, payload) {
     state.isLoading = false
     state.data = payload
   },
-
   [mutationTypes.getFeedFailure](state) {
     state.isLoading = false
   }
@@ -35,7 +33,7 @@ const mutations = {
 const actions = {
   [actionTypes.getFeed](context, { apiUrl }) {
     return new Promise(resolve => {
-      context.commit(mutationTypes.getFeedStart)
+      context.commit(mutationTypes.getFeedStart, apiUrl)
       feedApi
         .getFeed(apiUrl)
         .then(response => {

@@ -1,32 +1,32 @@
 import authApi from '@/api/auth'
-import { setItem } from '../../helpers/persistanceStorage'
+import { setItem } from '@/helpers/persistanceStorage'
 
 const state = {
   isSubmitting: false,
+  isLoggedIn: null,
   isLoading: false,
   currentUser: null,
-  validationErrors: null,
-  isLoggedIn: null
+  validationErrors: null
 }
 
 export const mutationTypes = {
-  registerStart: '[auth] registerStart',
-  registerSuccess: '[auth] registerSuccess',
-  registerFailure: '[auth] registerFailure',
+  registerStart: '[auth] Register start',
+  registerSuccess: '[auth] Register success',
+  registerFailure: '[auth] Register failure',
 
-  loginStart: '[auth] loginStart',
-  loginSuccess: '[auth] loginSuccess',
-  loginFailure: '[auth] loginFailure',
+  loginStart: '[auth] Login start',
+  loginSuccess: '[auth] Login success',
+  loginFailure: '[auth] Login failure',
 
-  getCurrentUserStart: '[auth] getCurrentUserStart',
-  getCurrentUserSuccess: '[auth] getCurrentUserSuccess',
-  getCurrentUserFailure: '[auth] getCurrentUserFailure'
+  getCurrentUserStart: '[auth] Get current user start',
+  getCurrentUserSuccess: '[auth] Get current user success',
+  getCurrentUserFailure: '[auth] Get current user failure'
 }
 
 export const actionTypes = {
-  register: '[auth] register',
-  login: '[auth] login',
-  getCurrentUser: '[auth] getCurrentUser'
+  register: '[auth] Register',
+  login: '[auth] Login',
+  getCurrentUser: '[auth] Get current user'
 }
 
 export const getterTypes = {
@@ -52,44 +52,36 @@ const mutations = {
     state.isSubmitting = true
     state.validationErrors = null
   },
-
   [mutationTypes.registerSuccess](state, payload) {
     state.isSubmitting = false
-    state.currentUser = payload
     state.isLoggedIn = true
+    state.currentUser = payload
   },
-
   [mutationTypes.registerFailure](state, payload) {
     state.isSubmitting = false
     state.validationErrors = payload
   },
-
   [mutationTypes.loginStart](state) {
     state.isSubmitting = true
     state.validationErrors = null
   },
-
   [mutationTypes.loginSuccess](state, payload) {
     state.isSubmitting = false
-    state.currentUser = payload
     state.isLoggedIn = true
+    state.currentUser = payload
   },
-
   [mutationTypes.loginFailure](state, payload) {
     state.isSubmitting = false
     state.validationErrors = payload
   },
-
   [mutationTypes.getCurrentUserStart](state) {
     state.isLoading = true
   },
-
   [mutationTypes.getCurrentUserSuccess](state, payload) {
     state.isLoading = false
     state.isLoggedIn = true
     state.currentUser = payload
   },
-
   [mutationTypes.getCurrentUserFailure](state) {
     state.isLoading = false
     state.isLoggedIn = false
@@ -113,7 +105,6 @@ const actions = {
             mutationTypes.registerFailure,
             result.response.data.errors
           )
-          console.log('result error: ', result)
         })
     })
   },
@@ -132,7 +123,6 @@ const actions = {
             mutationTypes.loginFailure,
             result.response.data.errors
           )
-          console.log('result error: ', result)
         })
     })
   },
@@ -157,7 +147,7 @@ const actions = {
 
 export default {
   state,
-  mutations,
   actions,
+  mutations,
   getters
 }

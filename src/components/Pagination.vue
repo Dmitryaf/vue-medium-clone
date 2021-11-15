@@ -15,8 +15,8 @@
 
 <script>
 import { range } from '@/helpers/utils'
-
 export default {
+  name: 'McvPagination',
   props: {
     total: {
       type: Number,
@@ -35,7 +35,6 @@ export default {
       required: true
     }
   },
-  name: 'McvPagination',
   computed: {
     pages() {
       const pagesCount = Math.ceil(this.total / this.limit)

@@ -1,8 +1,8 @@
 <template>
   <div>
     <mcv-loading v-if="isLoading" />
-    <mcv-error-message v-if="error" :message="error" />
-    <div v-if="error"></div>
+    <mcv-error-message v-if="error" />
+
     <div v-if="feed">
       <div
         class="article-preview"
@@ -24,15 +24,12 @@
                 name: 'userProfile',
                 params: { slug: article.author.username }
               }"
-              class="author"
             >
               {{ article.author.username }}
             </router-link>
-            <span class="data">{{ article.createdAt }}</span>
+            <span class="date">{{ article.createdAt }}</span>
           </div>
-          <div class="pull-xs-right">
-            Add to favorites
-          </div>
+          <div class="pull-xs-right">ADD TO FAVORITES</div>
         </div>
         <router-link
           :to="{ name: 'article', params: { slug: article.slug } }"
@@ -47,39 +44,34 @@
       <mcv-pagination
         :total="feed.articlesCount"
         :limit="limit"
-        :current-page="currentPage"
         :url="baseUrl"
-      />
+        :current-page="currentPage"
+      ></mcv-pagination>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-
 import { stringify, parseUrl } from 'query-string'
 
 import { actionTypes } from '@/store/modules/feed'
-
 import McvPagination from '@/components/Pagination'
+import { limit } from '@/helpers/vars'
 import McvLoading from '@/components/Loading'
 import McvErrorMessage from '@/components/ErrorMessage'
 
-import { limit } from '@/helpers/variables'
-
 export default {
   name: 'McvFeed',
-  props: {
-    apiUrl: { type: String, required: true }
-  },
   components: {
     McvPagination,
     McvLoading,
     McvErrorMessage
   },
-  data() {
-    return {
-      limit
+  props: {
+    apiUrl: {
+      type: String,
+      required: true
     }
   },
   computed: {
@@ -88,11 +80,14 @@ export default {
       feed: state => state.feed.data,
       error: state => state.feed.error
     }),
-    currentPage() {
-      return Number(this.$route.query.page || '1')
+    limit() {
+      return limit
     },
     baseUrl() {
       return this.$route.path
+    },
+    currentPage() {
+      return Number(this.$route.query.page || '1')
     },
     offset() {
       return this.currentPage * limit - limit
@@ -114,8 +109,8 @@ export default {
         offset: this.offset,
         ...parsedUrl.query
       })
-      const apiUrlWithParanms = `${parsedUrl.url}?${stringifiedParams}`
-      this.$store.dispatch(actionTypes.getFeed, { apiUrl: apiUrlWithParanms })
+      const apiUrlWithParams = `${parsedUrl.url}?${stringifiedParams}`
+      this.$store.dispatch(actionTypes.getFeed, { apiUrl: apiUrlWithParams })
     }
   }
 }

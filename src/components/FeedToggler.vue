@@ -3,7 +3,7 @@
     <ul class="nav nav-pills outline-active">
       <li v-if="isLoggedIn" class="nav-item">
         <router-link
-          :to="{ name: 'youFeed' }"
+          :to="{ name: 'yourFeed' }"
           class="nav-link"
           :class="{ active: routeName === 'yourFeed' }"
           >Your feed</router-link

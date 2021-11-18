@@ -56,10 +56,12 @@ import { mapState } from 'vuex'
 import { stringify, parseUrl } from 'query-string'
 
 import { actionTypes } from '@/store/modules/feed'
+
 import McvPagination from '@/components/Pagination'
-import { limit } from '@/helpers/vars'
 import McvLoading from '@/components/Loading'
 import McvErrorMessage from '@/components/ErrorMessage'
+
+import { limit } from '@/helpers/vars'
 
 export default {
   name: 'McvFeed',

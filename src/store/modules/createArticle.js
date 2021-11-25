@@ -25,7 +25,6 @@ const mutations = {
   [mutationTypes.createArticleFailure](state, payload) {
     state.isSubmitting = false
     state.validationErrors = payload
-    console.log('payload', payload)
   }
 }
 

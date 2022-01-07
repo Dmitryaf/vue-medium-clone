@@ -2,24 +2,24 @@ import articleApi from '@/api/article'
 
 const state = {
   isSubmitting: false,
-  isLoading: false,
   validationErrors: null,
+  isLoading: false,
   article: null
 }
 
 export const mutationTypes = {
-  updateArticleStart: '[updateArticle] Update article start',
-  updateArticleSuccess: '[updateArticle] Update article success',
-  updateArticleFailure: '[updateArticle] Update article failure',
+  updateArticleStart: '[editArticle] Update article start',
+  updateArticleSuccess: '[editArticle] Update article success',
+  updateArticleFailure: '[editArticle] Update article failure',
 
-  getArticleStart: '[updateArticle] Get article start',
-  getArticleSuccess: '[updateArticle] Get article success',
-  getArticleFailure: '[updateArticle] Get article failure'
+  getArticleStart: '[editArticle] Get article start',
+  getArticleSuccess: '[editArticle] Get article success',
+  getArticleFailure: '[editArticle] Get article failure'
 }
 
 export const actionTypes = {
-  updateArticle: '[updateArticle] Update article',
-  getArticle: '[updateArticle] Get article'
+  updateArticle: '[editArticle] Create article',
+  getArticle: '[editArticle] Get article'
 }
 
 const mutations = {
@@ -33,7 +33,6 @@ const mutations = {
     state.isSubmitting = false
     state.validationErrors = payload
   },
-
   [mutationTypes.getArticleStart](state) {
     state.isLoading = true
   },

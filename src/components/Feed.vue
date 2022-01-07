@@ -29,7 +29,13 @@
             </router-link>
             <span class="date">{{ article.createdAt }}</span>
           </div>
-          <div class="pull-xs-right">ADD TO FAVORITES</div>
+          <div class="pull-xs-right">
+            <mcv-add-to-favorites
+              :is-favorited="article.favorited"
+              :article-slug="article.slug"
+              :favorites-count="article.favoritesCount"
+            ></mcv-add-to-favorites>
+          </div>
         </div>
         <router-link
           :to="{ name: 'article', params: { slug: article.slug } }"
@@ -38,7 +44,7 @@
           <h1>{{ article.title }}</h1>
           <p>{{ article.description }}</p>
           <span>Read more...</span>
-          <mcv-tag-list :tags="article.tagList"></mcv-tag-list>
+          <mcv-tag-list :tags="article.tagList" />
         </router-link>
       </div>
       <mcv-pagination
@@ -57,12 +63,13 @@ import { stringify, parseUrl } from 'query-string'
 
 import { actionTypes } from '@/store/modules/feed'
 
+import { limit } from '@/helpers/vars'
+
 import McvPagination from '@/components/Pagination'
 import McvLoading from '@/components/Loading'
 import McvErrorMessage from '@/components/ErrorMessage'
 import McvTagList from '@/components/TagList'
-
-import { limit } from '@/helpers/vars'
+import McvAddToFavorites from '@/components/AddToFavorites'
 
 export default {
   name: 'McvFeed',
@@ -70,7 +77,8 @@ export default {
     McvPagination,
     McvLoading,
     McvErrorMessage,
-    McvTagList
+    McvTagList,
+    McvAddToFavorites
   },
   props: {
     apiUrl: {
@@ -99,6 +107,9 @@ export default {
   },
   watch: {
     currentPage() {
+      this.fetchFeed()
+    },
+    apiUrl() {
       this.fetchFeed()
     }
   },

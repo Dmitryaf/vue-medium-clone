@@ -1,21 +1,24 @@
 <template>
   <div>
-    <mcv-loading v-if="isLoading"></mcv-loading>
+    <mcv-loading v-if="isLoading" />
     <mcv-article-form
       v-if="initialValues"
-      :initial-values="initialValues"
+      :initialValues="initialValues"
       :errors="validationErrors"
-      :is-submitting="isSubmitting"
-      @articleSubmitting="onSubmit"
-    ></mcv-article-form>
+      :isSubmitting="isSubmitting"
+      @articleSubmit="onSubmit"
+    >
+    </mcv-article-form>
   </div>
 </template>
+
 <script>
 import { mapState } from 'vuex'
-import { actionTypes } from '@/store/modules/editArticle'
 
 import McvArticleForm from '@/components/ArticleForm'
 import McvLoading from '@/components/Loading'
+import { actionTypes } from '@/store/modules/editArticle'
+
 export default {
   name: 'McvEditArticle',
   components: {
@@ -24,9 +27,9 @@ export default {
   },
   computed: {
     ...mapState({
-      isSubmitting: state => state.editArticle.isSubmitting,
       isLoading: state => state.editArticle.isLoading,
       article: state => state.editArticle.article,
+      isSubmitting: state => state.editArticle.isSubmitting,
       validationErrors: state => state.editArticle.validationErrors
     }),
     initialValues() {
@@ -42,22 +45,18 @@ export default {
     }
   },
   mounted() {
-    this.fetchArticle()
+    this.$store.dispatch(actionTypes.getArticle, {
+      slug: this.$route.params.slug
+    })
   },
   methods: {
     onSubmit(articleInput) {
-      console.log({ articleInput })
       const slug = this.$route.params.slug
       this.$store
-        .dispatch(actionTypes.updateArticle, { slug, articleInput })
+        .dispatch(actionTypes.updateArticle, { articleInput, slug })
         .then(article => {
           this.$router.push({ name: 'article', params: { slug: article.slug } })
         })
-    },
-    fetchArticle() {
-      this.$store.dispatch(actionTypes.getArticle, {
-        slug: this.$route.params.slug
-      })
     }
   }
 }

@@ -11,7 +11,7 @@ export default {
     message: {
       type: String,
       required: false,
-      default: 'Something bad happened'
+      default: 'Something went wrong'
     }
   }
 }

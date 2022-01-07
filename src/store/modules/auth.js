@@ -26,7 +26,7 @@ export const mutationTypes = {
   updateCurrentUserSuccess: '[auth] Update current user success',
   updateCurrentUserFailure: '[auth] Update current user failure',
 
-  logout: '[auth] Logout'
+  logout: '[auth] logout'
 }
 
 export const actionTypes = {
@@ -34,7 +34,7 @@ export const actionTypes = {
   login: '[auth] Login',
   getCurrentUser: '[auth] Get current user',
   updateCurrentUser: '[auth] Update current user',
-  logout: '[auth] Logout'
+  logout: '[auth] logout'
 }
 
 export const getterTypes = {
@@ -69,7 +69,6 @@ const mutations = {
     state.isSubmitting = false
     state.validationErrors = payload
   },
-
   [mutationTypes.loginStart](state) {
     state.isSubmitting = true
     state.validationErrors = null
@@ -83,7 +82,6 @@ const mutations = {
     state.isSubmitting = false
     state.validationErrors = payload
   },
-
   [mutationTypes.getCurrentUserStart](state) {
     state.isLoading = true
   },
@@ -97,14 +95,12 @@ const mutations = {
     state.isLoggedIn = false
     state.currentUser = null
   },
-
   [mutationTypes.updateCurrentUserStart]() {},
   [mutationTypes.updateCurrentUserSuccess](state, payload) {
     state.currentUser = payload
   },
   [mutationTypes.updateCurrentUserFailure]() {},
-
-  [mutationTypes.logout](state) {
+  [mutationTypes.logout]() {
     state.currentUser = null
     state.isLoggedIn = false
   }

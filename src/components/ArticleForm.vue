@@ -2,11 +2,8 @@
   <div class="editor-page">
     <div class="container page">
       <div class="row">
-        <div class="col-md-10 offset-md-1-col-xs-12">
-          <mcv-validation-errors
-            v-if="errors"
-            :validation-errors="errors"
-          ></mcv-validation-errors>
+        <div class="col-md-10 offset-md-1 col-xs-12">
+          <mcv-validation-errors v-if="errors" :validation-errors="errors" />
           <form @submit.prevent="onSubmit">
             <fieldset>
               <fieldset class="form-group">
@@ -36,7 +33,7 @@
                 <input
                   type="text"
                   class="form-control form-control-lg"
-                  placeholder="Enter text"
+                  placeholder="Enter tags"
                   v-model="tagList"
                 />
               </fieldset>
@@ -46,7 +43,7 @@
                   class="btn btn-lg pull-xs-right btn-primary"
                   :disabled="isSubmitting"
                 >
-                  Publish article
+                  Publish Article
                 </button>
               </fieldset>
             </fieldset>
@@ -56,13 +53,11 @@
     </div>
   </div>
 </template>
+
 <script>
 import McvValidationErrors from '@/components/ValidationErrors'
 export default {
   name: 'McvArticleForm',
-  components: {
-    McvValidationErrors
-  },
   props: {
     initialValues: {
       type: Object,
@@ -76,6 +71,9 @@ export default {
       type: Boolean,
       required: true
     }
+  },
+  components: {
+    McvValidationErrors
   },
   data() {
     return {
@@ -93,7 +91,7 @@ export default {
         body: this.body,
         tagList: this.tagList.split(' ')
       }
-      this.$emit('articleSubmitting', form)
+      this.$emit('articleSubmit', form)
     }
   }
 }

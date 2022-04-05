@@ -25,7 +25,7 @@
           </div>
           <span v-if="isAuthor">
             <router-link
-              class="btn btn-outline-secondary btn-sm"
+              class="btn btn-outline-secondary btn-sm m-r-1"
               :to="{ name: 'editArticle', params: { slug: article.slug } }"
             >
               <i class="ion-edit" />
